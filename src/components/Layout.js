@@ -259,6 +259,14 @@ class Dashboard extends React.Component {
       )
     }
 
+    const popupStyles = {
+      fontSize: window.innerWidth < 1000 ? 14 : 24,
+      height: `calc(100vh - ${app.timeline.dimensions.height}px)`,
+      width: '40vw',
+      bottom: app.timeline.dimensions.height,
+      overflowY: 'scroll'
+    }
+
     return (
       <div>
         <Toolbar
