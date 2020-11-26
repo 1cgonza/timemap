@@ -1,14 +1,20 @@
 @import 'popup';
 
 @-webkit-keyframes pulsate {
-  0% { opacity: 0.1; }
-  50% { opacity: 0.25; }
-  100% { opacity: 0.1; }
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.1;
+  }
 }
 
 .map-wrapper {
   position: fixed;
-  top: 0px;
+  top: 45px;
   bottom: 0px;
   left: 110px;
   right: 0;
@@ -41,27 +47,30 @@
   }
 
   .site-label {
-    background: rgba($black,0.6);
+    background: rgba($black, 0.6);
     color: #fff;
     padding: 5px;
     font-weight: 500;
     font-size: 11px;
-    border: rgba($black,0.6);
+    font-family: 'Lato', Helvetica, sans-serif;
+    border: rgba($black, 0.6);
     letter-spacing: 0.05em;
 
     &::before {
-      border-top-color: rgba($black,0.6);
+      border-top-color: rgba($black, 0.6);
     }
   }
 
-  .sites-layer, .shapes-layer {
+  .sites-layer,
+  .shapes-layer {
     position: fixed;
     top: 0px;
     left: 110px;
   }
 
   &.narrative-mode {
-    .sites-layer, .shapes-layer {
+    .sites-layer,
+    .shapes-layer {
       position: fixed;
       top: 0px;
       left: 0px;
@@ -143,7 +152,6 @@
   pointer-events: auto;
 }
 
-
 .eventLocationMarker {
   fill: none;
   stroke: $yellow;
@@ -151,7 +159,7 @@
 }
 
 .leaflet-tile {
-  filter: brightness(110%) invert(100%) grayscale(800%) contrast(80%);
+  filter: brightness(110%) invert(100%) grayscale(800%);
 }
 
 /*
@@ -174,10 +182,6 @@
   cursor: pointer;
 }
 
-.cluster-event {
-  cursor: pointer;
-}
-
 .location-event-marker {
   pointer-events: all !important;
   fill: $event_default;
@@ -185,14 +189,6 @@
 
   &.blue {
     fill: blue;
-  }
-}
-
-.cluster-event-marker {
-  pointer-events: all !important;
-
-  &.red {
-    fill: red;
   }
 }
 
@@ -211,7 +207,39 @@
 
 // no hover styles for events when in narrative mode
 .narrative-mode {
-  .event-hover:hover { opacity: 0; }
-  .no-hover { cursor: inherit; }
+  .event-hover:hover {
+    opacity: 0;
+  }
+  .no-hover {
+    cursor: inherit;
+  }
 }
 
+.place-cai {
+  font-size: 0.8em;
+  cursor: pointer;
+
+  .cai-name {
+    fill: whitesmoke;
+    width: 130px;
+    // transform: translate(-65px, -5px);
+    text-align: center;
+    display: none;
+    z-index: 9999;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  .cai-icon {
+    opacity: 0.5;
+    pointer-events: all !important;
+  }
+
+  &.active {
+    .cai-name {
+      display: block;
+    }
+  }
+}

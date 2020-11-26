@@ -1,3 +1,5 @@
+$timeline-height: 170px;
+
 .timeline-wrapper {
   position: fixed;
   box-sizing: border-box;
@@ -11,12 +13,16 @@
   bottom: 0px;
   z-index: $timeline;
 
+  &:focus {
+    outline: 0;
+  }
+
   &.folded {
     transition: bottom 0.2s ease;
 
     .timeline-header .timeline-toggle p .arrow-down {
-      transform: translate(0, 5px)rotate(-135deg);
-      -webkit-transform: translate(0, 5px)rotate(-135deg);
+      transform: translate(0, 5px) rotate(-135deg);
+      -webkit-transform: translate(0, 5px) rotate(-135deg);
     }
   }
 
@@ -141,7 +147,6 @@
 
       svg {
         display: inline-block;
-        float: left;
       }
 
       .domain {
@@ -158,7 +163,8 @@
         }
 
         text {
-          fill: $midwhite;
+          font-family: 'Lato', Helvetica, sans-serif;
+          // fill: $midwhite;
           text-transform: capitalize;
         }
       }
@@ -178,7 +184,9 @@
 
         .tick text {
           font-size: 10px;
-          text-anchor: end;
+          font-family: 'Lato';
+          transform: translate(5px, 13px);
+          // text-anchor: end;
         }
       }
 
@@ -197,7 +205,7 @@
 
       .event {
         cursor: pointer;
-        opacity: .7;
+        opacity: 0.7;
 
         &.mouseover {
           opacity: 1;
@@ -206,10 +214,11 @@
 
       .timeline-marker {
         fill: none;
+        transition: transform 0.2s ease;
       }
 
       .coevent {
-        opacity: .7;
+        opacity: 0.7;
         cursor: pointer;
       }
 
@@ -220,7 +229,7 @@
         fill: $midwhite;
 
         &:hover path,
-        &:hover path, {
+        &:hover path {
           transition: 0.2s ease;
           fill: $offwhite;
         }
@@ -240,7 +249,9 @@
         stroke-width: 1;
       }
 
-      .time-controls-inline circle { stroke: none; }
+      .time-controls-inline circle {
+        stroke: none;
+      }
 
       .time-controls g,
       .time-controls-inline {

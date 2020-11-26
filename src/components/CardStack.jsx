@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux'
 
 import * as selectors from '../selectors'
-import { getFilterIdxFromColorSet } from '../common/utilities'
-// import Card from './Card.jsx'
-import { Card } from '@forensic-architecture/design-system/react'
+import Card from './Card.jsx'
 import copy from '../common/data/copy.json'
 
 class CardStack extends React.Component {
@@ -67,16 +65,20 @@ class CardStack extends React.Component {
 
       return (
         <Card
+          event={event}
           ref={thisRef}
-          content={this.props.cardUI.layout({
-            event,
-            colors: this.props.colors,
-            coloringSet: this.props.coloringSet,
-            getFilterIdxFromColorSet
-          })}
+          sourceError={this.props.sourceError}
           language={this.props.language}
           isLoading={this.props.isLoading}
           isSelected={selections[idx]}
+          getCategoryGroup={this.props.getCategoryGroup}
+          getCategoryColor={this.props.getCategoryColor}
+          getCategoryLabel={this.props.getCategoryLabel}
+          onViewSource={this.props.onViewSource}
+          onHighlight={this.props.onHighlight}
+          onSelect={this.props.onSelect}
+          idx={idx}
+          features={this.props.features}
         />
       )
     })
@@ -182,9 +184,6 @@ function mapStateToProps (state) {
     language: state.app.language,
     isCardstack: state.app.flags.isCardstack,
     isLoading: state.app.flags.isFetchingSources,
-    cardUI: state.ui.card,
-    colors: state.ui.coloring.colors,
-    coloringSet: state.app.associations.coloringSet,
     features: state.features
   }
 }

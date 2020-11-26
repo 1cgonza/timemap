@@ -39,6 +39,7 @@ class Card extends React.Component {
       <CardSummary
         language={this.props.language}
         description={this.props.event.description}
+        data={this.props.event}
         isOpen={this.state.isOpen}
       />
     )
@@ -48,7 +49,7 @@ class Card extends React.Component {
     return (
       <CardLocation
         language={this.props.language}
-        location={this.props.event.location}
+        data={this.props.event}
         isPrecise={(!this.props.event.type || this.props.event.type === 'Structure')}
       />
     )

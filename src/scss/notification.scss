@@ -21,6 +21,7 @@
   padding: 20px;
   margin-bottom: 10px;
   box-sizing: border-box;
+  font-family: 'Lato', 'Helvetica', sans-serif;
   font-size: $large;
   transition: opacity 0.5s ease 0.1s, z-index 0.1s ease 0s;
   opacity: 1;
@@ -46,10 +47,18 @@
   .message {
     display: inline-block;
 
-    &.error { color: red; }
-    &.warning { color: orange; }
-    &.good { color: green; }
-    &.neutral { color: $darkgrey; }
+    &.error {
+      color: red;
+    }
+    &.warning {
+      color: orange;
+    }
+    &.good {
+      color: green;
+    }
+    &.neutral {
+      color: $darkgrey;
+    }
   }
 
   .details {

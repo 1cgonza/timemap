@@ -22,6 +22,7 @@ const TimelineZoomControls = ({ extent, zoomLevels, dims, onApplyZoom }) => {
     const isActive = zoomIsActive(zoom.duration, extent, max.duration)
     return (
       <text
+        key={`zoom-${idx}`}
         className={`zoom-level-button ${isActive ? 'active' : ''}`}
         x='60'
         y={(idx * 15) + 20}

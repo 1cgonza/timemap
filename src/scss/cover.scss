@@ -33,7 +33,6 @@
     padding: 20px 0 0 20px;
     display: flex;
     &.minimized {
-
     }
     .cover-logo {
       transition: all 1s;
@@ -43,24 +42,21 @@
   }
 
   &.minimized {
-    bottom: 150px;
+    top: 0;
     max-width: $toolbar-width;
     max-height: 30px;
+    display: none;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     .cover-logo-container {
       padding: 5px;
     }
     .cover-logo {
-      width: 60px;
-      height: 60px;
+      width: 15px;
+      height: 15px;
     }
   }
 }
-
-
-
 
 .fullscreen-bg {
   &.hidden {
@@ -73,7 +69,8 @@
   left: 0;
   // overflow: hidden;
   z-index: -100;
-  background: #000000; }
+  background: #000000;
+}
 
 .fullscreen-bg__video {
   position: relative;
@@ -101,10 +98,10 @@
   flex-direction: column;
   max-height: 100%;
 
-  hr, br {
+  hr,
+  br {
     width: 100%;
   }
-
 
   .sidebar {
     display: flex;
@@ -145,7 +142,8 @@
 
   .hero {
     min-width: 100%;
-    min-height: 80px;
+    max-width: 100%;
+    min-height: 150px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -163,7 +161,7 @@
       }
       justify-content: space-around;
       &.vertical {
-          flex-direction: column;
+        flex-direction: column;
       }
       .cell {
         border: 1px solid white;
@@ -211,23 +209,19 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 10em;
-    h1, h2, h3, h4, h5 { text-align: center; }
-    h1 { margin-bottom: -15px; margin-top: 30px; }
-    h5 { margin-top: -15px; }
-
-
-    .md-container {
-      width: 100%;
-      overflow-wrap: break-word;
-      // white-space: pre-line;
-
-      ul {
-        list-style: none;
-      }
-
-      li::before {
-        content: "* ";
-      }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: -15px;
+      margin-top: 30px;
+    }
+    h5 {
+      margin-top: -15px;
     }
 
     // mobile styles, remove overlay buttons
@@ -260,16 +254,17 @@
       .il-cover-verification {
         .il-video {
           border-radius: 1em;
-          background-color: rgba(240,240,240,0.5);
+          background-color: rgba(240, 240, 240, 0.5);
         }
       }
     }
   }
 
- _::-webkit-full-page-media, _:future, :root .cover-content {
+  _::-webkit-full-page-media,
+  _:future,
+  :root .cover-content {
     max-width: auto;
   }
-
 }
 
 .cover-footer {

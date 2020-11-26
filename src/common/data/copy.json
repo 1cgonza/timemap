@@ -2,6 +2,15 @@
   "es-MX": {
     "loading": "Cargando...",
     "legend": {
+      "default": {
+        "header": "Créditos",
+        "intro": [
+          "Investigación de fuente abierta y análisis por [Cerosetenta](https://cerosetenta.uniandes.edu.co/)",
+          "Software y espacialización por <a target='_blank' href='https://forensic-architecture.org/'>Forensic Architecture</a>."
+        ],
+        "notation": "",
+        "arrows": ""
+      },
       "view2d": {
         "paragraphs": [
           "Seleccionando una serie de filtros verá aparecer eventos en el mapa y en la línea del tiempo.",
@@ -17,9 +26,9 @@
       }
     },
     "toolbar": {
-      "title": "TITLE",
-      "categories": "Categories",
-      "filters": "Filters",
+      "title": "Violencia Policial",
+      "categories": "Categorias",
+      "filters": "Filtros",
       "explore_by_filter__title": "Explore by filter or category",
       "explore_by_filter__description": "Selecting filters or categories, you'll see only those events that are tagged accordingly. If you select nothing, as well as everything, all data will be displayed.",
       "panels": {
@@ -38,15 +47,7 @@
       }
     },
     "timeline": {
-      "zooms": [
-        "3 años",
-        "3 meses",
-        "3 días",
-        "12 horas",
-        "2 horas",
-        "30 min",
-        "10 min"
-      ],
+      "zooms": ["3 años", "3 meses", "3 días", "12 horas", "2 horas", "30 min", "10 min"],
       "labels_title": "Testimonios",
       "labels": [
         "Testimony Group 00",
@@ -59,11 +60,11 @@
     },
     "cardstack": {
       "header": "eventos seleccionados",
-      "unknown_location": "Localización desconocida",
+      "unknown_location": "Ubicación desconocida",
       "unknown_time": "Día y hora desconocida",
       "timestamp": "Día y hora",
       "estimated": "aproximado",
-      "location": "Localización",
+      "location": "Ubicación",
       "incident_type": "Tipo de acción",
       "description": "Hechos",
       "people": "Personas en el evento",
@@ -94,11 +95,9 @@
       "default": {
         "header": "Navigating the Platform",
         "intro": [
-          "Each small **dot** represents a **datapoint**, or incident. Click on a dot to see details. Hover over a larger ‘**cluster**’ dot to see how many events it represents.",
-          "Zoom in either with a mouse-scroll or by clicking a ‘cluster’ dot.",
-          "Use **filters** and **categories** to segment the data. Selecting certain filters and categories will show only the datapoints that relate to them. If no filters or categories are selected, all the datapoints are displayed.",
-          "Selecting more than one filter will introduce colour-coded datapoints, which allow you to compare types of incident across time and space. This feature works up to a maximum of six filters.",
-          "Use the left and right arrows to move back and forward through time. You can also click and drag anywhere on the timeline. Use the handles on the right to select a date range."
+          "Open source research by [Bellingcat](https://bellingcat.com).<br/>Software and spatialisation by [Forensic Architecture](https://forensic-architecture.org).",
+          "Each event represents an occurence that is distinct in time or space, or both. An event is represented by a coloured circle on both the map and the timeline.",
+          "Select an event to reveal its content and sources. You can filter events by category or other specified filters in the top left toolbar."
         ],
         "notation": "Combinations of colours within a circle indicate multiple events in a single location.",
         "arrows": "Use the left/right arrows on the keboard to move back and forth between events in time."
@@ -126,28 +125,14 @@
       "filters": "Filters",
       "filters_label": "Filters",
       "explore_by_filter__title": "Explore by filter",
-      "explore_by_filter__description": "'Filters' refer to the types of incident. Select multiple filters to introduce colour-coding, up to a maximum of four filters.<br><br>If no filters are selected, all datapoints are displayed.",
+      "explore_by_filter__description": "Selecting a filter will show you only those events that are annotated with the filter. If you select nothing, as well as everything, all data will be displayed.",
       "explore_by_category__title": "Explore events by category",
-      "explore_by_category__description": "‘Categories’ refer to the victims of a given incident.<br><br>If no categories are selected, all datapoints are displayed."
+      "explore_by_category__description": ""
     },
     "timeline": {
-      "zooms": [
-        "3 years",
-        "3 months",
-        "3 days",
-        "12 hours",
-        "2 hours",
-        "30 min",
-        "10 min"
-      ],
+      "zooms": ["3 years", "3 months", "3 days", "12 hours", "2 hours", "30 min", "10 min"],
       "labels_title": "Testimonies",
-      "labels": [
-        "Testimony Group 00",
-        "Testimony Group 01",
-        "Testimony Group 02",
-        "Testimony Group 03",
-        "Other"
-      ],
+      "labels": ["Testimony Group 00", "Testimony Group 01", "Testimony Group 02", "Testimony Group 03", "Other"],
       "info": "Seeing events that occurred between"
     },
     "cardstack": {

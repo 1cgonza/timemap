@@ -4,10 +4,14 @@ import { urlFromEnv } from '../common/utilities'
 // TODO: relegate these URLs entirely to environment variables
 // const CONFIG_URL = urlFromEnv('CONFIG_EXT')
 const EVENT_DATA_URL = urlFromEnv('EVENTS_EXT')
-const ASSOCIATIONS_URL = urlFromEnv('ASSOCIATIONS_EXT')
+const VICTIMAS_EXT = urlFromEnv('VICTIMAS_EXT')
+const CAIS_EXT = urlFromEnv('CAIS_EXT')
+// const CATEGORY_URL = urlFromEnv('CATEGORIES_EXT')
+// const ASSOCIATIONS_URL = urlFromEnv('ASSOCIATIONS_EXT')
 const SOURCES_URL = urlFromEnv('SOURCES_EXT')
-const SITES_URL = urlFromEnv('SITES_EXT')
-const SHAPES_URL = urlFromEnv('SHAPES_EXT')
+// const SITES_URL = urlFromEnv('SITES_EXT')
+// const SHAPES_URL = urlFromEnv('SHAPES_EXT')
+const STATIC_URL = urlFromEnv('STATIC_EXT')
 
 const domainMsg = (domainType) => `Something went wrong fetching ${domainType}. Check the URL or try disabling them in the config file.`
 
@@ -23,6 +27,7 @@ export function fetchDomain () {
   }
 
   return (dispatch, getState) => {
+    if (!EVENT_DATA_URL) return;
     const features = getState().features
     dispatch(toggleFetchingDomain())
 
@@ -41,63 +46,91 @@ export function fetchDomain () {
       )
     ).then(results => results.flatMap(t => t))
 
-    let associationsPromise = Promise.resolve([])
-    if (features.USE_ASSOCIATIONS) {
-      if (!ASSOCIATIONS_URL) {
-        associationsPromise = Promise.resolve(handleError('USE_ASSOCIATIONS is true, but you have not provided a ASSOCIATIONS_EXT'))
-      } else {
-        associationsPromise = fetch(ASSOCIATIONS_URL)
-          .then(response => response.json())
-          .catch(() => handleError(domainMsg('associations')))
-      }
-    }
+    /**
+     * Nuevo endpoint para importar las categorias y CAIs en proyecto 9S.
+     * TODO: ¿que forma le damos a los siguientes proyectos? - definir este endpoint de forma genérica.
+     */
+    const staticPromise = fetch(STATIC_URL)
+      .then((response) => response.json())
+      .catch(() => handleError('static'));
 
-    let sourcesPromise = Promise.resolve([])
-    if (features.USE_SOURCES) {
-      if (!SOURCES_URL) {
-        sourcesPromise = Promise.resolve(handleError('USE_SOURCES is true, but you have not provided a SOURCES_EXT'))
-      } else {
-        sourcesPromise = fetch(SOURCES_URL)
-          .then(response => response.json())
-          .catch(() => handleError(domainMsg('sources')))
-      }
-    }
+    const caisPromise = fetch(CAIS_EXT)
+      .then((response) => response.json())
+      .catch(() => handleError('cais'))
 
-    let sitesPromise = Promise.resolve([])
-    if (features.USE_SITES) {
-      sitesPromise = fetch(SITES_URL)
-        .then(response => response.json())
-        .catch(() => handleError(domainMsg('sites')))
-    }
+    const victimasPromise = fetch(VICTIMAS_EXT)
+      .then((response) => response.json())
+      .catch(() => handleError('victimas'))
 
-    let shapesPromise = Promise.resolve([])
-    if (features.USE_SHAPES) {
-      shapesPromise = fetch(SHAPES_URL)
-        .then(response => response.json())
-        .catch(() => handleError(domainMsg('shapes')))
-    }
+    // let catPromise = Promise.resolve([]);
+    // if (features.USE_CATEGORIES) {
+    //   catPromise = fetch(CATEGORY_URL)
+    //     .then((response) => response.json())
+    //     .catch(() => handleError(domainMsg('categories')));
+    // }
+
+    // let associationsPromise = Promise.resolve([]);
+    // if (features.USE_ASSOCIATIONS) {
+    //   if (!ASSOCIATIONS_URL) {
+    //     associationsPromise = Promise.resolve(
+    //       handleError('USE_ASSOCIATIONS is true, but you have not provided a ASSOCIATIONS_EXT')
+    //     );
+    //   } else {
+    //     associationsPromise = fetch(ASSOCIATIONS_URL)
+    //       .then((response) => response.json())
+    //       .catch(() => handleError(domainMsg('associations')));
+    //   }
+    // }
+
+    // let sourcesPromise = Promise.resolve([]);
+    // if (features.USE_SOURCES) {
+    //   if (!SOURCES_URL) {
+    //     sourcesPromise = Promise.resolve(handleError('USE_SOURCES is true, but you have not provided a SOURCES_EXT'));
+    //   } else {
+    //     sourcesPromise = fetch(SOURCES_URL)
+    //       .then((response) => response.json())
+    //       .catch(() => handleError(domainMsg('sources')));
+    //   }
+    // }
+
+    // let sitesPromise = Promise.resolve([]);
+    // if (features.USE_SITES) {
+    //   sitesPromise = fetch(SITES_URL)
+    //     .then((response) => response.json())
+    //     .catch(() => handleError(domainMsg('sites')));
+    // }
+
+    // let shapesPromise = Promise.resolve([]);
+    // if (features.USE_SHAPES) {
+    //   shapesPromise = fetch(SHAPES_URL)
+    //     .then((response) => response.json())
+    //     .catch(() => handleError(domainMsg('shapes')));
+    // }
 
     return Promise.all([
       eventPromise,
-      associationsPromise,
-      sourcesPromise,
-      sitesPromise,
-      shapesPromise
+      caisPromise,
+      staticPromise,
+      victimasPromise
     ])
       .then(response => {
         const result = {
-          events: response[0],
-          associations: response[1],
-          sources: response[2],
-          sites: response[3],
-          shapes: response[4],
+          eventos: response[0],
+          categories: response[2].categories.map((cat) => ({ category: cat })),
+          // categories: response[1].categories,
+          cais: response[1],
+          victimas: response[3],
+          // filters: response[1].categories,
+          associations: [],
+          // sources: response[3],
+          // sites: response[4],
+          // shapes: response[5],
           notifications
         }
         if (Object.values(result).some(resp => resp.hasOwnProperty('error'))) {
           throw new Error('Some URLs returned negative. If you are in development, check the server is running')
         }
         dispatch(toggleFetchingDomain())
-        dispatch(setInitialCategories(result.associations))
         return result
       })
       .catch(err => {
@@ -180,13 +213,12 @@ export function clearFilter (filter) {
   }
 }
 
-export const TOGGLE_ASSOCIATIONS = 'TOGGLE_ASSOCIATIONS'
-export function toggleAssociations (association, value, shouldColor) {
+export const TOGGLE_FILTER = 'TOGGLE_FILTER'
+export function toggleFilter(filter, value) {
   return {
-    type: TOGGLE_ASSOCIATIONS,
-    association,
+    type: TOGGLE_FILTER,
+    filter,
     value,
-    shouldColor
   }
 }
 
@@ -201,14 +233,6 @@ export const SET_NOT_LOADING = 'SET_NOT_LOADING'
 export function setNotLoading () {
   return {
     type: SET_NOT_LOADING
-  }
-}
-
-export const SET_INITIAL_CATEGORIES = 'SET_INITIAL_CATEGORIES'
-export function setInitialCategories (values) {
-  return {
-    type: SET_INITIAL_CATEGORIES,
-    values
   }
 }
 
@@ -249,14 +273,6 @@ export function updateSource (source) {
   return {
     type: UPDATE_SOURCE,
     source
-  }
-}
-
-export const UPDATE_COLORING_SET = 'UPDATE_COLORING_SET'
-export function updateColoringSet (coloringSet) {
-  return {
-    type: UPDATE_COLORING_SET,
-    coloringSet
   }
 }
 
@@ -302,13 +318,6 @@ export const TOGGLE_INFOPOPUP = 'TOGGLE_INFOPOPUP'
 export function toggleInfoPopup () {
   return {
     type: TOGGLE_INFOPOPUP
-  }
-}
-
-export const TOGGLE_INTROPOPUP = 'TOGGLE_INTROPOPUP'
-export function toggleIntroPopup () {
-  return {
-    type: TOGGLE_INTROPOPUP
   }
 }
 

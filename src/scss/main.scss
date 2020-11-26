@@ -14,4 +14,19 @@
 @import 'cover';
 @import 'stateoptions';
 
+.historiaInfo {
+  position: fixed;
+  width: 40vw;
+  height: 90vh;
+  left: 110px;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 3em;
+}
 
+.closeBtn {
+  font-size: 2.3em;
+  text-align: right;
+  cursor: pointer;
+}

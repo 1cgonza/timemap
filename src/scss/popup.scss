@@ -48,12 +48,14 @@
   }
 
   .timestamp {
+    font-family: 'Lato', Helvetica, sans-serif;
     text-transform: uppercase;
     font-size: $xlarge;
     margin-top: 0;
   }
 
   .location {
+    font-family: 'Lato', Helvetica, sans-serif;
     font-size: $normal;
     color: $offwhite;
   }

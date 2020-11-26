@@ -3,12 +3,12 @@
   box-sizing: border-box;
   height: 100%;
 
-  [role=tablist] {
+  [role='tablist'] {
     padding: 0;
   }
 
-
-  [role=tab] {
+  [role='tab'] {
+    font-family: 'Lato', Helvetica, sans-serif;
     font-size: $xlarge;
     width: 33%;
     background: none;
@@ -27,7 +27,7 @@
     }
   }
 
-  [role=tab][aria-selected=true] {
+  [role='tab'][aria-selected='true'] {
     font-weight: 700;
     border-radius: 0;
     border: 0;
